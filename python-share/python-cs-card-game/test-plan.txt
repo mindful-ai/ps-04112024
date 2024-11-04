@@ -1,0 +1,8 @@
+
+test_add_card: Verifies that a card is added to the deck.
+test_prevent_duplicate_addition: Ensures no duplicate cards are added.
+test_remove_card: Confirms that a card is removed when it exists in the deck.
+test_remove_nonexistent_card: Checks that attempting to remove a nonexistent card does nothing.
+test_update_card_status: Verifies that the status of a card can be updated.
+test_list_cards_no_filter: Ensures listing all cards without a filter works.
+test_list_cards_with_filter: Tests filtering cards based on their status.

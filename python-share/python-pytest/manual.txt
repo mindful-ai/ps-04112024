@@ -1,0 +1,81 @@
+1. Install pytest (if it’s not already installed)
+
+pip install pytest
+
+------------------------------------------------------------------------------------------
+
+2. Navigate to the Project Directory
+Ensure you’re in the directory where the tests are located. 
+Typically, this would be the root of your project or within a tests/ folder 
+if you organized it that way.
+
+
+------------------------------------------------------------------------------------------
+
+3. Run All Tests
+To run all tests in the project, use the following command in the terminal:
+
+pytest
+
+
+------------------------------------------------------------------------------------------
+
+4. Run a Specific Test File
+If you want to run tests from a specific file (e.g., test_card_game.py), use:
+
+pytest test_card_game.py
+
+------------------------------------------------------------------------------------------
+
+5. Run Specific Test Functions
+You can specify a test function within a test file by using :: syntax:
+
+pytest test_card_game.py::test_draw_card
+
+
+------------------------------------------------------------------------------------------
+
+6. Get Detailed Output
+For more information on test results, use the -v (verbose) option:
+
+pytest -v
+
+------------------------------------------------------------------------------------------
+
+7. Generate an HTML Report (optional)
+To generate a test report in HTML format, install the pytest-html plugin:
+
+pip install pytest-html
+
+Then run:
+
+pytest --html=report.html
+
+Example Directory Structure
+If your project is organized as follows:
+
+bash
+Copy code
+cards_project/
+├── card_game.py          # Main code file for the card game
+├── test_card_game.py     # Test file with pytest tests
+└── requirements.txt      # Contains project dependencies
+Run pytest from the cards_project/ directory.
+
+
+------------------------------------------------------------------------------------------
+
+Running Tests Automatically on File Changes (optional)
+You can use pytest-watch to re-run tests automatically when a file changes:
+
+Install pytest-watch:
+
+pip install pytest-watch
+
+Use it to watch for changes:
+
+ptw
+
+------------------------------------------------------------------------------------------
+This setup will allow you to quickly execute, debug, and review test results for your 
+card game project using pytest.

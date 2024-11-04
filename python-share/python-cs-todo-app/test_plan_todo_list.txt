@@ -1,0 +1,7 @@
+test_add_task: Verifies that a new task can be added to the to-do list.
+test_prevent_duplicate_addition: Ensures that tasks with identical titles aren’t added again.
+test_remove_task: Checks that a task can be removed when it exists.
+test_remove_nonexistent_task: Confirms that trying to remove a nonexistent task does nothing.
+test_update_task: Verifies that an existing task’s attributes can be updated.
+test_list_tasks_no_filter: Ensures listing all tasks without a filter works.
+test_list_tasks_with_filter: Tests filtering tasks based on their status.
