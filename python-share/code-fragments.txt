@@ -1,0 +1,22 @@
+for regid in classdict.keys():
+    # sum_of_subjmarks = classdict[regid]['phy'] + classdict[regid]['chem'] + ...
+    sum_of_subjmarks = 0
+    subjs = ['phy', 'chem', 'math', 'bio']
+    for key in subjs :
+        sum_of_subjmarks += int(classdict[regid][key])
+    classdict[regid]['avg'] = sum_of_subjmarks / len(subjs)
+
+---------------------------------------------------------------------------------------------
+
+avgs = [classdict[regid]['avg'] for regid in classdict.keys()]
+avgs = list(set(avgs))
+avgs.sort(reverse=True)
+
+print(avgs)
+
+rank = 1
+for avg in avgs:
+    for regid in classdict.keys():
+        if(classdict[regid]['avg'] == avg):
+            classdict[regid]['rank'] = rank
+    rank += 1
