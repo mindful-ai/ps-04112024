@@ -20,3 +20,38 @@ for avg in avgs:
         if(classdict[regid]['avg'] == avg):
             classdict[regid]['rank'] = rank
     rank += 1
+
+---------------------------------------------------------------------------------------------
+
+def add_task(self, task):
+        for existing_task in self.tasks:
+            if existing_task.title == task.title:
+                return False  # Prevent duplicates
+        self.tasks.append(task)
+        return True
+
+    def remove_task(self, title):
+        for task in self.tasks:
+            if task.title == title:
+                self.tasks.remove(task)
+                return True
+        return False
+
+    def update_task(self, title, new_title=None, new_description=None, new_due_date=None, new_status=None):
+        for task in self.tasks:
+            if task.title == title:
+                if new_title:
+                    task.title = new_title
+                if new_description:
+                    task.description = new_description
+                if new_due_date:
+                    task.due_date = new_due_date
+                if new_status:
+                    task.status = new_status
+                return True
+        return False
+
+    def list_tasks(self, status=None):
+        if status:
+            return [task for task in self.tasks if task.status == status]
+        return self.tasks
