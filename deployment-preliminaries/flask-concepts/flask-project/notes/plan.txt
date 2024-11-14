@@ -1,0 +1,40 @@
+ml_regression_project/
+│
+├── app/
+│   ├── templates/
+│   │   └── index.html          # HTML for user input
+│   ├── __init__.py             # Package initializer for Flask app
+│   ├── app.py                  # Main Flask application file
+│   └── model.py                # Model loading and prediction logic
+│
+├── config/
+│   ├── config.yaml             # Configuration file for model parameters and paths
+│   └── __init__.py             # Allows config to be imported as a package
+│
+├── data/
+│   ├── housing.csv             # Dataset file (may or may not be packaged)
+│   └── __init__.py             # Allows data to be imported as a package
+│
+├── models/
+│   ├── model.pkl               # Serialized model file (Pickle format)
+│   └── __init__.py             # Allows models to be imported as a package
+│
+├── notebooks/
+│   └── data_preparation.ipynb  # Jupyter notebook for data exploration and preprocessing
+│
+├── static/
+│   ├── style.css               # CSS styling for the HTML page
+│   └── __init__.py             # Allows static to be imported as a package
+│
+├── ml_regression_project/
+│   ├── __init__.py             # Main package initializer
+│   └── version.py              # Defines the package version
+│
+├── tests/
+│   └── test_app.py             # Unit tests for the Flask application
+│
+├── README.md                   # Project documentation
+├── requirements.txt            # Required packages
+├── setup.py                    # Packaging configuration
+├── MANIFEST.in                 # Inclusion of non-Python files in the package
+└── train.py                    # Script for training the model

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- https://jinja.palletsprojects.com/en/3.0.x/templates/#builtin-filters -->
+    <!-- https://documentation.bloomreach.com/engagement/docs/jinja -->
+    <!-- https://documentation.bloomreach.com/engagement/docs/useful-jinja-snippets -->
+     
+    <h3>Capitalized  {{ name|capitalize }}</h3>
+    <h3>Upper        {{ name.upper() }}</h3>
+    <h3>Center       {{ 'Hello'|center(40) }}</h3>
+    <h3>Justified    {{ 'Hello'.rjust(10) }} string</h3>
+    <p>{{ ''|default('the string was empty', true) }}</p>
+
+    {{ '%s after %s, %d by %d' | format('One', 'another', 1, 1) }}
+
+    {% set myList = [1, 2, 3, 4, 5] %}
+    {# output myList filtered by batch with parameters 2 and 999 #} 
+    {{ myList | batch(2, fill_with=999) | list }}
+
+    {% set myDict = ({'a': 0}, {'a': 1}, {'b': 2}) %}
+    {# Output only the values from my dict such that they have the attribute a and are equal to 1 #}
+    {{ myDict | selectattr('a', 'equalto', 1) | list }} 
+
+
+</body>
+</html>

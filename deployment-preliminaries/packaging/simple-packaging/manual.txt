@@ -1,0 +1,123 @@
+Packaging a Python module allows you to bundle your code into a distributable format, 
+such as a .whl or .tar.gz file, making it easy to install and use in different 
+environments. Here’s a step-by-step guide to packaging a Python module, 
+followed by instructions on how to install it.
+
+-------------------------------------------------------------------------------------
+Example Project Structure
+-------------------------------------------------------------------------------------
+
+my_math_module/
+├── my_math_module/
+│   ├── __init__.py
+│   ├── addition.py
+│   └── subtraction.py
+├── README.md
+├── setup.py
+└── LICENSE
+
+-------------------------------------------------------------------------------------
+Create the following files
+-------------------------------------------------------------------------------------
+
+__init__.py: 
+This file makes my_math_module a package and allows you to define what gets 
+imported when you call from my_math_module import *.
+
+# __init__.py
+from .addition import add
+from .subtraction import subtract
+
+
+# addition.py
+def add(a, b):
+    return a + b
+
+
+# subtraction.py
+def subtract(a, b):
+    return a - b
+
+
+
+-------------------------------------------------------------------------------------
+Creating setup.py
+-------------------------------------------------------------------------------------
+
+setup.py is the main file that contains information about your package. 
+
+# setup.py
+from setuptools import setup, find_packages
+
+setup(
+    name="my_math_module",                  # Package name
+    version="0.1.0",                        # Package version
+    author="Your Name",
+    author_email="your.email@example.com",
+    description="A simple math module",
+    long_description=open("README.md").read(),  # Long description from README
+    long_description_content_type="text/markdown",
+    url="https://github.com/yourusername/my_math_module",
+    packages=find_packages(),               # Automatically find sub-packages
+    classifiers=[
+        "Programming Language :: Python :: 3",
+        "License :: OSI Approved :: MIT License",
+        "Operating System :: OS Independent",
+    ],
+    python_requires=">=3.6",                # Minimum Python version requirement
+)
+
+
+-------------------------------------------------------------------------------------
+Create README.md and LICENSE (Optional)
+-------------------------------------------------------------------------------------
+README.md: Contains a description of the module, installation instructions, 
+and usage examples.
+
+
+LICENSE: Add a license file like MIT, Apache, or GPL. This is essential 
+if you’re sharing the package publicly.
+
+
+
+-------------------------------------------------------------------------------------
+Building the package
+-------------------------------------------------------------------------------------
+
+Install the setuptools and wheel modules if you don’t have them:
+>>> pip install setuptools wheel
+
+
+Build the package by running the following command in the 
+project’s root directory (where setup.py is located):
+>>> python setup.py sdist bdist_wheel
+
+
+This command will create two distribution files in the dist/ folder:
+dist/
+├── my_math_module-0.1.0.tar.gz
+└── my_math_module-0.1.0-py3-none-any.whl
+
+
+-------------------------------------------------------------------------------------
+Upload to PyPI (Optional)
+-------------------------------------------------------------------------------------
+If you want to distribute your package publicly, you can upload it to PyPI.
+
+pip install twine
+twine upload dist/*
+
+-------------------------------------------------------------------------------------
+Install the Package
+-------------------------------------------------------------------------------------
+
+Create a virtual environment first as discussed previously.
+
+Then, 
+
+Install from a local file:
+>>> pip install dist/my_math_module-0.1.0-py3-none-any.whl
+
+Install from PyPI (if uploaded):
+>>> pip install my_math_module
+

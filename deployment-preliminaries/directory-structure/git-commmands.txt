@@ -1,0 +1,7 @@
+cd my_ml_project                # Navigate to your project directory
+git init                         # Initialize a Git repository
+touch .gitignore                 # Create a .gitignore file
+git add .                        # Stage all files for commit
+git commit -m "Initial commit"    # Commit the changes
+git remote add origin <URL>      # Add GitHub remote repository
+git push -u origin master        # Push to GitHub

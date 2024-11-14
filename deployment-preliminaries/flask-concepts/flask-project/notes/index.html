@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>California Housing Price Prediction</title>
+    <link rel="stylesheet" href="../static/style.css">
+</head>
+<body>
+    <h1>California Housing Price Prediction</h1>
+    <form action="/" method="post">
+        <label>Latitude: <input type="number" name="latitude" step="0.01" required></label><br>
+        <label>Longitude: <input type="number" name="longitude" step="0.01" required></label><br>
+        <label>Housing Median Age: <input type="number" name="housing_median_age" required></label><br>
+        <label>Total Rooms: <input type="number" name="total_rooms" required></label><br>
+        <label>Total Bedrooms: <input type="number" name="total_bedrooms" required></label><br>
+        <label>Population: <input type="number" name="population" required></label><br>
+        <label>Households: <input type="number" name="households" required></label><br>
+        <label>Median Income: <input type="number" step="0.01" name="median_income" required></label><br>
+        <button type="submit">Predict</button>
+    </form>
+    
+    {% if prediction is not None %}
+    <h2>Predicted House Value: ${{ prediction }}</h2>
+    {% endif %}
+</body>
+</html>

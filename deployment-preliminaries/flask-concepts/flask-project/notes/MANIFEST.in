@@ -1,0 +1,7 @@
+include README.md
+include requirements.txt
+include config/config.yaml
+recursive-include app/templates *
+recursive-include static *
+recursive-include models *
+recursive-include data *

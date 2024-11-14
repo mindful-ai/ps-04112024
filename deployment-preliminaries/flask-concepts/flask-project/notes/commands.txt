@@ -1,0 +1,12 @@
+Building the package:
+python setup.py sdist bdist_wheel
+
+Install the package:
+pip install .
+Use .whl file if installing in a directory
+
+Running the app:
+run_app
+
+Training the model:
+train_model
