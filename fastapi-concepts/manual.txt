@@ -1,0 +1,90 @@
+--------------------------------------------------------------------------
+Basic Structure of FastAPI
+--------------------------------------------------------------------------
+
+pip install fastapi
+pip install uvicorn
+----------------------------------------------
+
+To run the fastapi application use uvicorn:
+uvicorn 01-basic-structure:app --reload
+----------------------------------------------
+
+Study the requests library in python
+Issue the commands to test the basic structure
+
+>>> import requests
+>>> r = requests.get('http://127.0.0.1:8000') 
+>>> r.text
+
+>>> data = {'name': 'computer', 'price':'1000', 'description':'a computing device'}
+>>> r = requests.post('http://127.0.0.1:8000/items', data=data)
+>>> r.text
+
+
+Alternatively, you could also use POSTMAN
+
+--------------------------------------------------------------------------
+ CRUD Ops
+--------------------------------------------------------------------------
+pip install pydantic[email,timezone]
+
+
+Run the 01-crud-ops.py:
+uvicorn 02-crud-ops:app --reload
+
+Then in a different terminal, run your tests:
+pytest .\test_crud_ops.py
+
+You will see some errors. Fix them by carefully analysing the code
+Use POSTMAN for cross referencing if necessary
+
+--------------------------------------------------------------------------
+ Automatic Data Validation and Documentation
+--------------------------------------------------------------------------
+
+FastAPI integrates seamlessly with Pydantic to validate request and response data. 
+By defining data models with Pydantic, you get automatic validation of incoming 
+JSON data and generation of response models.
+
+It automatically generates interactive API documentation using Swagger UI and ReDoc. 
+This makes it very easy to test and interact with the API directly from the browser.
+
+Swagger UI: http://127.0.0.1:8000/docs
+ReDoc: http://127.0.0.1:8000/redoc
+
+The Fast API server should be running
+
+
+--------------------------------------------------------------------------
+ Dependency Injection
+--------------------------------------------------------------------------
+
+Dependency Injection in FastAPI is a mechanism to manage shared logic, services, 
+or components, and inject them into your route handlers or other functions. 
+This feature is implemented using FastAPI's Depends.
+
+authenticated_user Dependency:
+This simulates user authentication. It checks a token and returns user details.
+If the token is invalid, it raises an HTTPException with a 401 status code.
+
+
+db_dependency Dependency:
+This simulates a database session using a context manager (get_db_session) 
+to manage the lifecycle of the database connection.
+
+Depends:
+Used to inject dependencies into the route handler (read_items in this case).
+
+Advantages:
+
+Reusability: Dependencies like authenticated_user and db_dependency can be reused across multiple routes.
+Separation of Concerns: By using dependency injection, the logic for authentication or database management is decoupled from the endpoint logic.
+Lifecycle Management: The context manager ensures proper setup and teardown (e.g., opening and closing a database session).
+
+Run:
+uvicorn app:app --reload
+
+Test:
+Give a GET request to "http://127.0.0.1:8000/items/"
+change the token to something else and see what happens
