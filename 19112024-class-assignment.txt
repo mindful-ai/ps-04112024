@@ -1,0 +1,4 @@
+Access flask-concepts
+
+1. Update the flask-rest-api project to include all CRUD operations
+2. In the flask-project, all files are available in notes. Generate a directory using dirgen. Setup and run the flask application
