@@ -1,0 +1,10 @@
+Run the project-gen-containerize-flask.py
+
+Fix all the errors
+
+Observe there is a mounted
+
+Inspect volumes:
+docker volume ls                # Lists all volumes
+docker volume inspect app-data  # Inspect specific volume
+docker-compose down --volumes   # To clean up named volumes

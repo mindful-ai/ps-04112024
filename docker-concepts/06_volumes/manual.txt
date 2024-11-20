@@ -1,0 +1,68 @@
+Docker volumes are a mechanism to persist and share data between 
+containers and the host system. They allow:
+
+Data Persistence: Keep data even if containers are removed.
+
+Code Synchronization: Sync code changes in real-time between 
+the host and the container.
+
+Sharing Data: Share data between multiple containers.
+
+-----------------------------------------------------------------------
+Why Use Volumes?
+
+Development:
+Allows rapid iterations by instantly reflecting code changes
+in the container.
+
+Data Persistence:
+Use volumes for databases (e.g., MySQL, PostgreSQL) to 
+ensure data survives container restarts.
+
+Modularity:
+Separate application code, configurations, and persistent 
+data in a clean and manageable way.
+
+-----------------------------------------------------------------------
+
+
+In flask-docker-volumes:
+
+Volumes:
+The line ./app:/app in the docker-compose.yml file creates a volume.
+The host's app directory (before the colon) is mapped to the 
+container's /app directory (after the colon).
+Any changes made to files in the host app directory 
+will instantly reflect in the container.
+
+Code Synchronization:
+During development, changes to app.py on the host machine 
+automatically apply in the container without rebuilding the image.
+
+Port Mapping:
+The Flask app running on port 5000 inside the container is 
+accessible on port 5000 on the host.
+
+Restart Policy:
+The restart: always ensures the container restarts if it stops 
+unexpectedly.
+
+Issue the following commands"
+docker-compose up
+
+See the output of the flask application on the browser.
+
+Then, 
+Modify the app/app.py file, save changes, and refresh the browser. 
+The changes will be live without rebuilding the container.
+
+Finally, stop the services:
+docker-compose down
+
+TO create a docker managed volume, add the following in yaml file:
+
+volumes:
+  - my_app_volume:/app
+
+volumes:
+  my_app_volume:

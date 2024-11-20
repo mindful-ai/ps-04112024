@@ -1,0 +1,34 @@
+Creating mysql using docker run:
+
+mkdir mysql-data
+docker run --name basic-mysql -v ./mysql-data:/var/lib/mysql 
+-e MYSQL_ROOT_PASSWORD=123456 -e MYSQL_DATABASE=testing -p 3000:3306 -it mysql:8.0
+
+In another terminal:
+docker exec -it basic-sql /bin/bash
+mysql -uroot -p123456
+
+---------------------------------------------------------------------------------------------------
+
+Docker Compose approach:
+
+create a file named: docker-compose.yml
+
+version: '3.8'
+services:
+  db:
+    image: mysql:8.0
+    environment:
+      - MYSQL_ROOT_PASSWORD=123456
+      - MYSQL_DATABASE=testing
+    ports:
+      - '3000:3306'
+    volumes:
+      - db:/var/lib/mysql
+      - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
+    restart: always
+    cap_add: 
+      - SYS_NICE
+volumes:
+  db:
+    driver: local

@@ -1,0 +1,400 @@
+--------------------------------------------------------------------------------------------------------
+Installation of Docker
+--------------------------------------------------------------------------------------------------------
+
+https://www.docker.com/get-started/
+
+
+--------------------------------------------------------------------------------------------------------
+The docker run command
+--------------------------------------------------------------------------------------------------------
+
+Part 1:
+-------
+Issuing the basic docker run command
+docker run hello-world
+
+Analyse the console output
+
+docker run hello-world
+
+Analyse again!
+
+docker run --help -> for help on a specific command
+
+docker images -a -> lists all the images currently present in the repository
+
+
+Part 2: Override Features
+-------
+docker run busybox echo hi there!
+docker run busybox ls -l
+docker run busybox whoami
+docker run busybox top -> shows CPU utilization summary
+Note: Everytime you "run" a new busybox (container) is created
+
+Will this work? Justify
+docker run hello-world echo hi there!
+docker run hello-world ls
+
+--------------------------------------------------------------------------------------------------------
+List running containers
+--------------------------------------------------------------------------------------------------------
+
+
+docker ps
+docker run busybox echo
+docker ps -> doesn't list busybox container because echo will be completed quickly
+
+docker run busybox ping google.com
+docker ps            -> Observe various things listed
+docker ps -a         -> list of all containers ever created
+docker info          -> give the system wide information
+
+
+--------------------------------------------------------------------------------------------------------
+Container Lifecycle
+--------------------------------------------------------------------------------------------------------
+
+docker create hello-world -> produces an ID
+docker start -a <id> -> We see the effect of docker run
+
+For listing container ids use docker ps
+docker start -a <id> -> 
+
+Understand the use -a and -i switches for docker start
+docker start --help
+
+
+--------------------------------------------------------------------------------------------------------
+Restarting stopped containers
+--------------------------------------------------------------------------------------------------------
+
+
+docker ps -all
+docker run busybox echo hi there
+docker ps -all
+    -> just because the container stopped, it doesnot mean it is dead or cannot
+       be used again
+
+docker start -a <id> -> will restart
+It will start with the command with which it was started
+Naturally stops after executing the default command
+You cannot replace the default command
+
+Try -> docker start -a <id> echo newcommand
+Does it work?
+
+--------------------------------------------------------------------------------------------------------
+Stopping/removing containers
+--------------------------------------------------------------------------------------------------------
+docker system prune
+docker ps -all -> shows no containers 
+
+
+Removes all the containers, Not the images!
+
+--------------------------------------------------------------------------------------------------------
+Logging the outputs
+--------------------------------------------------------------------------------------------------------
+
+docker create busybox echo hi there
+docker start <id>
+-> there is no -a options specified
+-> This will be expensive because we will have to 
+   re-run with -a to see the results on console
+
+docker logs <id> -> gives information with out Restarting
+
+--------------------------------------------------------------------------------------------------------
+Stopping containers
+--------------------------------------------------------------------------------------------------------
+
+docker create busybox ping google.com
+
+docker start <id>
+docker logs <id>
+
+otherwise issue docker start -a <id>
+
+docker ps
+    -> continuing, send a signal to stopped
+
+docker stop <id> -> observe docker give 10S and then automatically kills
+docker kill <id> -> no grace period here
+
+
+--------------------------------------------------------------------------------------------------------
+Multi-command Containers
+--------------------------------------------------------------------------------------------------------
+
+docker run redis
+
+In a separate terminal:
+docker ps
+docker exec -it 681a726b5e3d redis-cli
+
+Issue redis commands:
+ping
+set key 78
+get key
+
+
+
+--------------------------------------------------------------------------------------------------------
+Starting with a shell
+--------------------------------------------------------------------------------------------------------
+
+docker run -it busybox sh
+
+
+--------------------------------------------------------------------------------------------------------
+Container Isolation
+--------------------------------------------------------------------------------------------------------
+
+Terminal 1: docker run -it busybox sh
+Create a file/directory inside it
+
+Terminal 2: docker run -it busybox sh
+Create a another file/directory inside it
+
+Examine both the containers
+
+--------------------------------------------------------------------------------------------------------
+Inspecting the images
+--------------------------------------------------------------------------------------------------------
+
+docker image inspect redis
+
+--------------------------------------------------------------------------------------------------------
+Removing images and containers
+--------------------------------------------------------------------------------------------------------
+
+docker ps -> containers
+docker rm <container id> -> to remove container (stop before removing)
+
+docker images -> images
+docker rmi -f <image name> -> to remove an image
+
+
+--------------------------------------------------------------------------------------------------------
+Docker Images
+--------------------------------------------------------------------------------------------------------
+
+Part 1: Building a Docker Image
+--------------------------------------------
+
+Objective: to create an image that runs redis server
+
+mkdir redis-image
+cd redis-image
+--------------------------------------------
+Invoke VSC: code .
+
+Create a file: Dockerfile
+
+# Use an existing image as the base image
+# Download and install dependencies
+# Tell the image what to do
+
+FROM alpine
+RUN apk add --update redis (not a docker command, apache package manager)
+CMD ["redis-server"]
+
+Build-kit enabled by default.
+Preferences -> Docker Engine -> False
+
+--------------------------------------------
+
+docker build .
+docker run <id>
+
+Part 2: Observe the docker build process
+--------------------------------------------
+
+docker build .
+Observe the temporary ids cretaed along the way while build is happening
+
+Part 3: Re-builds from cache
+--------------------------------------------
+
+Add an extra command to install gcc
+RUN apk add -update gcc
+after redis command
+
+In the second pass,
+put that command before redis and observe the results
+
+What do you infer?
+
+
+Part 4: Tagging the Images
+--------------------------------------------
+
+docker build -t <your docker id>/redis:latest .
+docker ps -all
+
+Part 5: Docker commit -> manual configuration
+--------------------------------------------
+
+Note: This is not quite often used in the production environment
+
+Terminal: 1
+
+docker run -it alpine sh
+# apk add --update redis -> on the shell
+
+Terminal : 2
+
+Get the id of the running container in terminal 1, say 681a726b5e3d
+
+docker commit -c 'CMD "redis-server"' 681a726b5e3d 
+You get a really long id. 
+sha256:7e48a5bdd19201effe523eefe0eb1f39a355e5e417558e35e81eec0da451bef8
+
+You can now run that manually customized container
+docker run <just use first few numbers of the id>
+
+
+--------------------------------------------------------------------------------------------------------
+Practice Project: Simple Web App
+--------------------------------------------------------------------------------------------------------
+
+Step 1: Create package.json and index.js in a directory called simpleweb
+----------------------------------------------------------------------------
+package.json
+{
+    "dependencies": { "express": "*"},
+    "scripts": { "start": "node index.js"}
+}
+
+index.js
+const express = require("express");
+const app = express();
+
+app.get('/', (req, res) => {
+    res.send("Hello There");
+});
+
+app.listen(8080, () => {
+    console.log("Listening on port 8080");
+});
+
+Dockerfile
+----------------------------------------------------------------------------
+
+FROM alpine
+RUN npm install
+CMD ["npm","start"]
+
+docker build .
+
+What do you see?
+
+Step 2: Fixing the error
+----------------------------------------------------------------------------
+Our image is alpine and it does not have npm
+Two options: choose another base image or add a command to configure npm
+We will go with first options
+
+Docker Hub -> Search node
+docker image with pre-installed node
+node:14-alpine
+
+Let's choose node:alpine many popular repositories offer alpine version their repository
+Using just node, would install many extra things which we don't require
+
+docker build . (note: can take a while)
+
+Does the build process complete? 
+
+Renaming <none> images:
+docker tag 33e0196e8630 node_image
+docker images
+
+
+Step 3: Copying the files
+----------------------------------------------------------------------------
+
+docker run 33e0196e8630
+
+node:alpine FS snapshot doesn't have our files in the filesystem of the container
+We need the files package.json and index.js before npm build
+
+Add COPY ./ ./ into the Dockerfile before RUN
+
+docker build -t purushotham1982/simpleweb:latest .
+
+Step 4: Creating work directories
+----------------------------------------------------------------------------
+
+docker run -it purushotham1982/simpleweb sh
+ls -l
+
+We see the user files on the top
+It is better to organize those files to prevent unnecassary modification that can cause issues
+There fore it is better to specify work directory
+
+WORKDIR /usr/app -> if not existing it will automatically docker will automatically create for us
+All commands will be executed relative to /usr/app
+Add it before COPY
+
+docker build .
+docker run <id>
+
+Try accessing the application on the browser: localhost:8080
+
+Step 5: Port mapping
+----------------------------------------------------------------------------
+Forward the request available in the host to some port in the container
+docker run -p 8080:8080 d9ae54e4bdfa
+docker run -p 3000:8080 d9ae54e4bdfa  what happened??
+docker run -p 8080:3000 d9ae54e4bdfa  what happened??
+
+Step 6: Re-builds
+----------------------------------------------------------------------------
+
+Change the line in index.js
+res.send("Some text")
+Does it change on the browser on refresh? Why is that?
+
+Step 7: Minimizing cache busting 
+----------------------------------------------------------------------------
+
+When you re-build the container
+COPY ./ ./ was invalidated as there was a change to one of the source files.
+In the re-build process npm dependencies were also re-build
+This is not needed.
+
+Therefore it would be better to put COPY after RUN
+Docker will re-build only from the point the sequence changed
+
+Test this
+
+--------------------------------------------------------------------------------------------------------
+Docker Compose: Node-Redis Images
+--------------------------------------------------------------------------------------------------------
+Create a docker-compose.yml as below:
+
+version: '3'
+services:
+  redis-server:
+    image: 'redis'
+  node-app:
+    build: .
+    ports: 
+      - '4040:8081'
+
+
+--------------------------------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------------------------------
+
+
+
+
+--------------------------------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------------------------------
+
+

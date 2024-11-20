@@ -1,0 +1,16 @@
+Build and start the services:
+docker-compose up --build
+
+Open your browser or API client and go to:
+http://localhost:5000
+
+Stop the services:
+docker-compose down
+
+Key Commands for Docker Compose:
+
+docker-compose up	        Starts the services.
+docker-compose up --build	Rebuilds images and starts the services.
+docker-compose down	        Stops and removes the containers.
+docker-compose ps	        Lists running services.
+docker-compose logs	        Displays logs of all services.

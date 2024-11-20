@@ -1,0 +1,443 @@
+For Part 1, 2, 3, 4:
+---------------------------------------------------------------------------------
+
+      [
+        {
+            DepartmentId: 3,
+            DepartmentName: "ADFPM 1001 neverending",
+            LocationId: 200,
+            ManagerId: 300,
+        },
+        { DepartmentId: 5, DepartmentName: "BB", LocationId: 200, ManagerId: 300 },
+        {
+            DepartmentId: 10,
+            DepartmentName: "Administration",
+            LocationId: 200,
+            ManagerId: 300,
+        },
+        {
+            DepartmentId: 20,
+            DepartmentName: "Marketing",
+            LocationId: 200,
+            ManagerId: 300,
+        },
+        {
+            DepartmentId: 30,
+            DepartmentName: "Purchasing",
+            LocationId: 200,
+            ManagerId: 300,
+        },
+        {
+            DepartmentId: 40,
+            DepartmentName: "Human Resources1",
+            LocationId: 200,
+            ManagerId: 300,
+        },
+        {
+            DepartmentId: 50,
+            DepartmentName: "Administration2",
+            LocationId: 200,
+            ManagerId: 300,
+        },
+        {
+            DepartmentId: 60,
+            DepartmentName: "Marketing3",
+            LocationId: 200,
+            ManagerId: 300,
+        },
+        {
+            DepartmentId: 70,
+            DepartmentName: "Purchasing4",
+            LocationId: 200,
+            ManagerId: 300,
+        },
+        {
+            DepartmentId: 80,
+            DepartmentName: "Human Resources5",
+            LocationId: 200,
+            ManagerId: 300,
+        },
+        {
+            DepartmentId: 90,
+            DepartmentName: "Human Resources11",
+            LocationId: 200,
+            ManagerId: 300,
+        },
+        {
+            DepartmentId: 100,
+            DepartmentName: "Administration12",
+            LocationId: 200,
+            ManagerId: 300,
+        },
+        {
+            DepartmentId: 110,
+            DepartmentName: "Marketing13",
+            LocationId: 200,
+            ManagerId: 300,
+        },
+        {
+            DepartmentId: 120,
+            DepartmentName: "Purchasing14",
+            LocationId: 200,
+            ManagerId: 300,
+        },
+        {
+            DepartmentId: 130,
+            DepartmentName: "Human Resources15",
+            LocationId: 200,
+            ManagerId: 300,
+        },
+        {
+            DepartmentId: 1001,
+            DepartmentName: "ADFPM 1001 neverending",
+            LocationId: 200,
+            ManagerId: 300,
+        },
+        {
+            DepartmentId: 1009,
+            DepartmentName: "BB",
+            LocationId: 200,
+            ManagerId: 300,
+        },
+        {
+            DepartmentId: 1011,
+            DepartmentName: "Administration",
+            LocationId: 200,
+            ManagerId: 300,
+        },
+        {
+            DepartmentId: 2011,
+            DepartmentName: "Marketing",
+            LocationId: 200,
+            ManagerId: 300,
+        },
+        {
+            DepartmentId: 3011,
+            DepartmentName: "Purchasing",
+            LocationId: 200,
+            ManagerId: 300,
+        },
+        {
+            DepartmentId: 4011,
+            DepartmentName: "Human Resources1",
+            LocationId: 200,
+            ManagerId: 300,
+        },
+        {
+            DepartmentId: 5011,
+            DepartmentName: "Administration2",
+            LocationId: 200,
+            ManagerId: 300,
+        },
+        {
+            DepartmentId: 6011,
+            DepartmentName: "Marketing3",
+            LocationId: 200,
+            ManagerId: 300,
+        },
+        {
+            DepartmentId: 7011,
+            DepartmentName: "Purchasing4",
+            LocationId: 200,
+            ManagerId: 300,
+        },
+        {
+            DepartmentId: 8011,
+            DepartmentName: "Human Resources5",
+            LocationId: 200,
+            ManagerId: 300,
+        },
+        {
+            DepartmentId: 9011,
+            DepartmentName: "Human Resources11",
+            LocationId: 200,
+            ManagerId: 300,
+        },
+        {
+            DepartmentId: 10011,
+            DepartmentName: "Administration12",
+            LocationId: 200,
+            ManagerId: 300,
+        },
+        {
+            DepartmentId: 11011,
+            DepartmentName: "Marketing13",
+            LocationId: 200,
+            ManagerId: 300,
+        },
+        {
+            DepartmentId: 12011,
+            DepartmentName: "Purchasing14",
+            LocationId: 200,
+            ManagerId: 300,
+        },
+        {
+            DepartmentId: 13011,
+            DepartmentName: "Human Resources15",
+            LocationId: 200,
+            ManagerId: 300,
+        },
+        {
+            DepartmentId: 14011,
+            DepartmentName: "ADFPM 1001 neverending",
+            LocationId: 200,
+            ManagerId: 300,
+        },
+        {
+            DepartmentId: 15011,
+            DepartmentName: "BB",
+            LocationId: 200,
+            ManagerId: 300,
+        },
+        {
+            DepartmentId: 21022,
+            DepartmentName: "Administration",
+            LocationId: 200,
+            ManagerId: 300,
+        },
+        {
+            DepartmentId: 22022,
+            DepartmentName: "Marketing",
+            LocationId: 200,
+            ManagerId: 300,
+        },
+        {
+            DepartmentId: 23022,
+            DepartmentName: "Purchasing",
+            LocationId: 200,
+            ManagerId: 300,
+        },
+        {
+            DepartmentId: 24022,
+            DepartmentName: "Human Resources1",
+            LocationId: 200,
+            ManagerId: 300,
+        },
+        {
+            DepartmentId: 25022,
+            DepartmentName: "Administration2",
+            LocationId: 200,
+            ManagerId: 300,
+        },
+        {
+            DepartmentId: 26022,
+            DepartmentName: "Marketing3",
+            LocationId: 200,
+            ManagerId: 300,
+        },
+        {
+            DepartmentId: 27022,
+            DepartmentName: "Purchasing4",
+            LocationId: 200,
+            ManagerId: 300,
+        },
+        {
+            DepartmentId: 28022,
+            DepartmentName: "Human Resources5",
+            LocationId: 200,
+            ManagerId: 300,
+        },
+        {
+            DepartmentId: 29022,
+            DepartmentName: "Human Resources11",
+            LocationId: 200,
+            ManagerId: 300,
+        },
+        {
+            DepartmentId: 310022,
+            DepartmentName: "Administration12",
+            LocationId: 200,
+            ManagerId: 300,
+        },
+        {
+            DepartmentId: 311022,
+            DepartmentName: "Marketing13",
+            LocationId: 200,
+            ManagerId: 300,
+        },
+        {
+            DepartmentId: 312022,
+            DepartmentName: "Purchasing14",
+            LocationId: 200,
+            ManagerId: 300,
+        },
+        {
+            DepartmentId: 313022,
+            DepartmentName: "Human Resources15",
+            LocationId: 200,
+            ManagerId: 300,
+        },
+    ];
+      
+For part 5, 6:
+---------------------------------------------------------------------------------
+
+[
+          {
+              DepartmentId: "01",
+              DepartmentName: "ADFPM 1001 neverending",
+              LocationId: 200,
+              ManagerId: 300,
+          },
+          {
+              DepartmentId: "20",
+              DepartmentName: "BB",
+              LocationId: 200,
+              ManagerId: 300,
+          },
+          {
+              DepartmentId: "30",
+              DepartmentName: "Administration",
+              LocationId: 200,
+              ManagerId: 300,
+          },
+          {
+              DepartmentId: "40",
+              DepartmentName: "Marketing",
+              LocationId: 200,
+              ManagerId: 300,
+          },
+          {
+              DepartmentId: "50",
+              DepartmentName: "Purchasing",
+              LocationId: 200,
+              ManagerId: 300,
+          },
+          {
+              DepartmentId: "60",
+              DepartmentName: "Human Resources1",
+              LocationId: 200,
+              ManagerId: 300,
+          },
+          {
+              DepartmentId: "70",
+              DepartmentName: "Administration2",
+              LocationId: 200,
+              ManagerId: 300,
+          },
+          {
+              DepartmentId: "80",
+              DepartmentName: "Marketing3",
+              LocationId: 200,
+              ManagerId: 300,
+          },
+          {
+              DepartmentId: "90",
+              DepartmentName: "Purchasing4",
+              LocationId: 200,
+              ManagerId: 300,
+          },
+          {
+              DepartmentId: "10",
+              DepartmentName: "Human Resources5",
+              LocationId: 200,
+              ManagerId: 300,
+          },
+      ]
+
+part 6
+------------------------------------------------------------------
+
+[
+        {
+            EmployeeId: 5,
+            FirstName: "Amy",
+            LastName: "Bartlet",
+            salary: 100000,
+            bonus: 2000,
+        },
+        {
+            EmployeeId: 10,
+            FirstName: "Andy",
+            LastName: "Jones",
+            salary: 1030000,
+            bonus: 1000,
+        },
+        {
+            EmployeeId: 20,
+            FirstName: "Andrew",
+            LastName: "Bugsy",
+            salary: 1120000,
+            bonus: 2100,
+        },
+        {
+            EmployeeId: 50,
+            FirstName: "Bart",
+            LastName: "Buckler",
+            salary: 910000,
+            bonus: 3100,
+        },
+        {
+            EmployeeId: 60,
+            FirstName: "Bobby",
+            LastName: "Fisher",
+            salary: 140200,
+            bonus: 2130,
+        },
+    ];
+
+    Part 8:
+    -----------------------------------------------------------------------------
+
+    [
+        {
+            DepartmentId: 10,
+            DepartmentName: "Administration",
+            LocationId: 100,
+            ManagerId: 1001,
+        },
+        {
+            DepartmentId: 20,
+            DepartmentName: "Marketing",
+            LocationId: 200,
+            ManagerId: 1002,
+        },
+        {
+            DepartmentId: 30,
+            DepartmentName: "Purchasing",
+            LocationId: 300,
+            ManagerId: 1003,
+        },
+        {
+            DepartmentId: 40,
+            DepartmentName: "Human Resources",
+            LocationId: 400,
+            ManagerId: 1004,
+        },
+        {
+            DepartmentId: 50,
+            DepartmentName: "Accounting",
+            LocationId: 500,
+            ManagerId: 1005,
+        },
+        {
+            DepartmentId: 60,
+            DepartmentName: "Operations",
+            LocationId: 600,
+            ManagerId: 1006,
+        },
+        {
+            DepartmentId: 70,
+            DepartmentName: "Engineering",
+            LocationId: 700,
+            ManagerId: 1007,
+        },
+        {
+            DepartmentId: 80,
+            DepartmentName: "Production",
+            LocationId: 800,
+            ManagerId: 1008,
+        },
+        {
+            DepartmentId: 90,
+            DepartmentName: "Sales",
+            LocationId: 900,
+            ManagerId: 1009,
+        },
+        {
+            DepartmentId: 100,
+            DepartmentName: "Customer Service",
+            LocationId: 1000,
+            ManagerId: 1010,
+        },
+      ]

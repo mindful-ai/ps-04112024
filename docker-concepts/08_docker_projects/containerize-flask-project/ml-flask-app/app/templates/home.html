@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>House Price Prediction</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <h1>Predict California House Prices</h1>
+    <form action="/predict" method="post">
+        <label>Median Income:</label>
+        <input type="text" name="MedInc" required><br>
+        <label>House Age:</label>
+        <input type="text" name="HouseAge" required><br>
+        <label>Average Rooms:</label>
+        <input type="text" name="AveRooms" required><br>
+        <label>Average Bedrooms:</label>
+        <input type="text" name="AveBedrms" required><br>
+        <label>Population:</label>
+        <input type="text" name="Population" required><br>
+        <label>Average Occupancy:</label>
+        <input type="text" name="AveOccup" required><br>
+        <label>Latitude:</label>
+        <input type="text" name="Latitude" required><br>
+        <label>Longitude:</label>
+        <input type="text" name="Longitude" required><br>
+        <button type="submit">Predict</button>
+    </form>
+</body>
+</html>

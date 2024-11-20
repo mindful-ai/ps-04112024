@@ -1,0 +1,93 @@
+Networking commands
+---------------------
+Creating: docker network create mynetwork
+Disconnecting: docker network disconnect mynetwork 0f8d7a833f42
+Inspecting: docker network inspect mynetwork
+Removing a network: docker network rm mynetwork
+
+Listing all the networks
+-> docker network ls
+
+--------------------------------------------------------------------------------------------------
+
+Objective: creating two containers and trying to ping through the network
+
+docker run --rm --name mynginx --detach nginx
+docker inspect mynginx -> Manually make note of IPAddress : 172.17.0.2
+docker run -it busybox sh
+
+/ # wget  172.17.0.2:80  -> fetches the index.html of nginx server
+
+Without  closing the busybox, in a different terminal issue:
+-> docker network inspect bridge
+
+and observer the two containers connected to it.
+
+--------------------------------------------------------------------------------------------------
+
+docker network create avengers
+docker run --rm --net avengers --name thor nginx
+docker run --net avengers -it busybox sh
+# wget thor:80 -> no need of IP address as we are on the user defined network
+
+Clean up and remove the network
+
+--------------------------------------------------------------------------------------------------
+NETWORKING PROJECT using haproxy, nodejs and redis
+--------------------------------------------------------------------------------------------------
+
+Objective: connect/link all the containers to make the "number of visits" project work
+
+change directory to -> haproxy-nodejs-redis 
+cd .\haproxy\
+docker build -t my-haproxy .
+cd ..\nodejs\
+docker build -t my-nodejs .
+
+--------------------------------------------------------------------------------------------------
+Method #1: Docker link containers
+
+docker container run -it -d --name redisnode01 redis
+docker container run -it -d --name nodejsserver01 --link redisnode01 my-nodejs
+docker container run -it -d --name haproxyserver01 --publish 90:80 --link nodejsserver01 my-haproxy
+
+Clean up ->
+Make sure you stop and remove all containers before next step
+
+--------------------------------------------------------------------------------------------------
+Method #2: Docker network containers
+
+docker network create visits-app-network
+docker container run -it -d --name redisnode01 --network visits-app-network redis
+docker container run -it -d --name nodejsserver01 --network visits-app-network my-nodejs
+docker container run -it -d --name haproxyserver01 --publish 90:80 --network visits-app-network my-haproxy
+
+Clean up ->
+Make sure you stop and remove all containers before next step
+
+--------------------------------------------------------------------------------------------------
+Method #3: Docker Compose
+
+version: '3'
+services:
+  redisnode01:
+    image: redis
+    ports:
+      - "6379:6379"
+  nodejsserver01:
+    depends_on:
+      - "redisnode01"
+    image: my-nodejs
+    ports: 
+      - "8081:8081"
+  haproxyserver:
+    depends_on:
+      - "nodejsserver01"
+    image: my-haproxy
+    ports: 
+      - "90:80"
+
+
+To up all the containers: docker-compose up
+Check: 127.0.0.1:8081
+To shutdown all containers: docker-compose down
