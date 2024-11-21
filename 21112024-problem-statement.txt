@@ -1,0 +1,3 @@
+Containerize the streamlit application that was studied earlier
+
+Resolve the multicontainer application given
