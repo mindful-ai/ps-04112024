@@ -1,0 +1,29 @@
+Here's an enhanced example showcasing Docker networking with Flask, Streamlit, Redis, 
+and Busybox in a machine learning context. This setup involves:
+
+Flask: A backend API that serves predictions.
+Streamlit: A frontend to input data and display predictions.
+Redis: A message broker to store predictions temporarily.
+Busybox: A lightweight container to showcase logging and model persistence via volumes.
+Volumes: Used for persisting logs and a trained model file.
+
+
+Steps to Run
+-----------------------------------------------------------------------------------------
+
+Train the model: Run worker/train_model.py locally or in the worker container to generate 
+the model.pkl.
+
+Start services:
+
+docker-compose up --build
+Access the frontend: Open http://localhost:8501.
+
+View logs: 
+
+Use Busybox to monitor logs:
+docker logs busybox_logger
+
+
+This setup demonstrates a fully-networked microservices architecture 
+for a machine learning application with persistent logging and model storage.
