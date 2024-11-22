@@ -1,0 +1,39 @@
+ml-docker-networking/
+├── prometheus.yml
+├── app/
+│   ├── app.py
+│   ├── requirements.txt
+├── worker/
+│   ├── generate_predictions.py
+│   ├── train_model.py
+│   ├── requirements.txt
+├── frontend/
+│   ├── app.py
+│   ├── requirements.txt
+├── logs/
+├── models/
+├── docker-compose.yml
+
+
+------------------------------------------------------
+
+Start all containers with the updated docker-compose.yml:
+docker-compose up --build
+
+------------------------------------------------------
+
+Access Prometheus and Grafana
+Prometheus: Open http://localhost:9090 to view the Prometheus UI.
+
+Use the PromQL query language to explore metrics (e.g., flask_app_requests_total).
+Grafana: Open http://localhost:3000 and log in (default credentials: admin/admin).
+
+Add Prometheus as a data source in Grafana (URL: http://prometheus:9090).
+Create dashboards to visualize metrics.
+
+------------------------------------------------------
+
+Verify Metrics
+Visit your Flask app (e.g., http://localhost:5000) to generate some activity.
+Check Prometheus at /metrics endpoint for data.
+Visualize the metrics in Grafana.

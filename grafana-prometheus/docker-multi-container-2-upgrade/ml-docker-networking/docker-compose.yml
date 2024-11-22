@@ -1,0 +1,90 @@
+version: "3.9"
+
+services:
+  flask_app:
+    build: ./app
+    container_name: flask_app
+    ports:
+      - "5000:5000"
+    networks:
+      - ml_network
+    volumes:
+      - ./models:/models
+
+  frontend:
+    build: ./frontend
+    container_name: streamlit_frontend
+    ports:
+      - "8501:8501"
+      - "8502:8502"  # Expose metrics port
+    networks:
+      - ml_network
+    depends_on:
+      - flask_app
+
+  redis:
+    image: redis:alpine
+    container_name: redis
+    networks:
+      - ml_network
+    volumes:
+      - redis_data:/data
+
+  worker:
+    build: ./worker
+    container_name: worker
+    networks:
+      - ml_network
+    depends_on:
+      - redis
+    volumes:
+      - ./logs:/logs
+      - ./models:/models
+
+  busybox:
+    image: busybox
+    container_name: busybox_logger
+    command: tail -f /logs/predictions.log
+    networks:
+      - ml_network
+    depends_on:
+      - worker
+    volumes:
+      - ./logs:/logs
+
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: prometheus
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+    ports:
+      - "9090:9090"
+    networks:
+      - ml_network
+    depends_on:
+      - flask_app
+      - worker
+      - frontend
+
+  grafana:
+    image: grafana/grafana:latest
+    container_name: grafana
+    ports:
+      - "3000:3000"
+    networks:
+      - ml_network
+    depends_on:
+      - prometheus
+    volumes:
+      - grafana_data:/var/lib/grafana
+
+      
+volumes:
+  redis_data:
+  logs:
+  models:
+  grafana_data:
+
+networks:
+  ml_network:
+    driver: bridge
