@@ -1,0 +1,20 @@
+The river module in machine learning is a library specifically designed for 
+online machine learning or streaming data. It provides tools for working with 
+data that is generated or arrives in streams, such as real-time data processing, 
+where the model is updated incrementally as new data points arrive. Unlike traditional 
+machine learning libraries, which require the entire dataset to be loaded in memory, 
+river works by updating the model incrementally, one data point at a time, which makes 
+it efficient for handling large or infinite datasets.
+
+Key Features of river:
+
+Incremental Learning: Allows you to update models as new data arrives, without the 
+need to retrain from scratch.
+
+Streaming Algorithms: Provides algorithms that can process data streams in real-time.
+
+Easy to Use: Designed with a similar API to scikit-learn, making it easier to 
+integrate into existing workflows.
+------------------------------------------------------------------------------------------
+
+pip install river

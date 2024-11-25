@@ -1,0 +1,31 @@
+The creme module is a Python library for online machine learning 
+(also known as incremental learning), designed to allow models to learn from data 
+that arrives sequentially, one sample at a time. This is especially useful when 
+working with large datasets or streaming data where the entire dataset cannot be 
+loaded into memory at once. Unlike traditional machine learning, where models are 
+trained in batches, online learning updates the model incrementally as new data 
+becomes available.
+
+Key features of creme include:
+
+It supports a wide range of machine learning algorithms 
+(classification, regression, clustering, etc.).
+It can handle data streams and make predictions in real-time.
+It integrates with scikit-learn, meaning you can use creme models with 
+scikit-learn pipelines and other tools.
+
+----------------------------------------------------------------------------------------
+
+Why use creme for a machine learning task?
+Memory Efficiency: Since the model learns incrementally, it doesn't need to store the 
+entire dataset in memory. This is ideal for large datasets or data streams where storing a
+ll past data isn't feasible.
+Real-Time Predictions: As the model is trained on each new data point, predictions 
+can be made in real-time, making this useful for applications like fraud detection, 
+recommendation systems, and sensor data analysis.
+Online Learning: creme is specifically designed for online learning, where the model's 
+performance can be evaluated continuously as it adapts to new data.
+
+----------------------------------------------------------------------------------------
+
+pip install creme
