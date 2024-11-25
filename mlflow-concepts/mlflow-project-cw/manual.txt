@@ -1,0 +1,146 @@
+conda-env -> Environment for these examples
+
+--------------------------------------------------------------------------
+
+Create an environment using the yaml file
+>>> conda env create -f conda_env.yaml
+
+Optionally if you like to remove the environment
+>>> conda env remove --name conda-env  
+
+List conda environments
+>>> conda env list
+
+Activate the environment
+>>> conda activate conda-env
+
+Run the project
+>>> mlflow run .
+
+Examine the project in the UI and the see the artifacts
+>>> mlflow ui
+
+--------------------------------------------------------------------------
+
+Look into the artifacts in MLflow UI and 
+copy the code for making predictions and test
+
+--------------------------------------------------------------------------
+
+Serving the model:
+
+install virtualenv 
+>>> pip install virtualenv
+
+install chardet 
+>>> pip install chardet
+
+Serve the Models with Local REST server:
+-> mlflow models serve -m runs:/<RUN_ID>/model --port 9000
+
+>>> mlflow models serve -m runs:/e2351cc9b3cc45f1bfccd4111e5e46a0/model --port 5001 --no-conda
+
+Testing the above:
+
+NOTE: MLflow has updated its model scoring protocol in version 2.0, 
+and your request format needs newer format requires the input JSON to 
+use specific fields: instances, inputs, dataframe_split, or dataframe_records.
+
+The instances field is commonly used for making predictions on a batch of inputs.
+{
+  "instances": [
+    [0.038074, 0.039366, 0.052308, 0.061881, 0.010548, 0.010201, 0.005550, 0.002121, -0.029973, -0.003187]
+  ]
+}
+
+The inputs field is an alternative that also works for batch predictions.
+{
+  "inputs": [
+    [0.038074, 0.039366, 0.052308, 0.061881, 0.010548, 0.010201, 0.005550, 0.002121, -0.029973, -0.003187]
+  ]
+}
+
+The dataframe_split field is suitable for inputs structured like a DataFrame.
+{
+  "dataframe_split": {
+    "columns": ["age", "sex", "bmi", "bp", "s1", "s2", "s3", "s4", "s5", "s6"],
+    "data": [
+      [0.038074, 0.039366, 0.052308, 0.061881, 0.010548, 0.010201, 0.005550, 0.002121, -0.029973, -0.003187]
+    ]
+  }
+}
+
+The dataframe_records field uses a record-oriented format.
+{
+  "dataframe_records": [
+    {
+      "age": 0.038074,
+      "sex": 0.039366,
+      "bmi": 0.052308,
+      "bp": 0.061881,
+      "s1": 0.010548,
+      "s2": 0.010201,
+      "s3": 0.005550,
+      "s4": 0.002121,
+      "s5": -0.029973,
+      "s6": -0.003187
+    }
+  ]
+}
+
+
+--------------------------------------------------------------------------
+
+Run:
+>>> python serve.py 
+
+Test with:
+http://127.0.0.1:5001/predict
+
+{
+    "age": [0.038074, 0.039366, 0.052308, 0.061881],
+    "sex": [0.038074, 0.021551, 0.009285, -0.045134],
+    "bmi": [0.038074, 0.009321, 0.021433, -0.045134],
+    "bp": [0.038074, 0.020197, 0.027472, -0.045134],
+    "s1": [0.038074, 0.010201, 0.022328, -0.045134],
+    "s2": [0.038074, 0.010388, 0.022322, -0.045134],
+    "s3": [0.038074, 0.005550, 0.002030, -0.045134],
+    "s4": [0.038074, 0.002121, 0.018399, -0.045134],
+    "s5": [0.038074, -0.029973, -0.034823, -0.045134],
+    "s6": [0.038074, -0.003187, 0.034643, -0.045134]
+}
+--------------------------------------------------------------------------
+
+Models can also be run from code in github repository;
+>>> mlflow run <https://github.com/mindful-ai/ml-flow-project> --experiment-name Loan_prediction
+
+
+--------------------------------------------------------------------------
+
+Creating the Docker container/ Docker image:
+
+Building Docker Image:
+
+mlflow models build-docker --model-uri runs:/e2351cc9b3cc45f1bfccd4111e5e46a0/model --name diabetes_model_image
+docker build -t diabetes_model_image .
+docker run -p 5000:8080 diabetes_model_image
+
+Generate the Docker file:
+
+mlflow models generate-dockerfile --model-uri runs:/e2351cc9b3cc45f1bfccd4111e5e46a0/model --output-directory ./docker_model
+
+--------------------------------------------------------------------------
+Register the model
+
+In the MLflow UI, register the model
+Give an alias for example @champion
+
+Refer to mlflow-registered-model.py
+
+
+Serving the Model from Registry
+# Set environment variable for the tracking URL where the Model Registry resides
+export MLFLOW_TRACKING_URI=http://localhost:5000
+
+# Serve the production model from the model registry
+mlflow models serve -m "models:/sk-learn-random-forest-reg-model@champion"

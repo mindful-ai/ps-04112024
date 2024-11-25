@@ -1,0 +1,13 @@
+name: conda-env
+channels:
+  - defaults
+dependencies:
+  - python=3.12
+  - pip
+  - pip:
+      - mlflow==2.17.2
+      - scikit-learn==1.5.1
+
+
+
+

@@ -1,0 +1,11 @@
+name: conda-env  # Name of the MLflow project
+
+conda_env: conda_env.yaml  # Reference to the conda_env.yaml file
+
+entry_points:
+  main:
+    parameters:
+      alpha: {type: float, default: 0.5}
+      l1_ratio: {type: float, default: 0.1}
+    command: >
+      python train.py --alpha {alpha} --l1_ratio {l1_ratio}
