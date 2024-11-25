@@ -1,0 +1,15 @@
+global:
+  scrape_interval: 15s
+
+scrape_configs:
+  - job_name: 'flask_app'
+    static_configs:
+      - targets: ['flask_app:5000']
+
+  - job_name: 'worker'
+    static_configs:
+      - targets: ['worker:5000']
+
+  - job_name: 'streamlit_frontend'
+    static_configs:
+      - targets: ['streamlit_frontend:8501']  # Updated to Streamlit metrics port

@@ -1,0 +1,70 @@
+-------------------------------------------------------------------------------------------------
+Expose Metrics from the Model API
+-------------------------------------------------------------------------------------------------
+Install Prometheus Client for Python
+pip install prometheus_client
+
+Modify the Model Serving API to Expose Metrics
+In the model_serving/app.py file, we'll expose metrics for request count and response latency.
+See app.py
+
+Expose Metrics
+/metrics endpoint will expose all the metrics to Prometheus.
+The request count and latency for predictions will be tracked and exposed for monitoring.
+
+Run the Model API with Prometheus Metrics
+python model_serving/app.py
+
+-------------------------------------------------------------------------------------------------
+Setting Up Prometheus to Scrape Metrics
+-------------------------------------------------------------------------------------------------
+
+Install Prometheus
+Download and install Prometheus from Prometheus download page.
+
+Configure Prometheus to Scrape the Metrics
+Create a prometheus.yml file to define the scraping configuration:
+See prometheus.yml
+
+Run Prometheus:
+./prometheus --config.file=prometheus.yml
+Prometheus will start scraping the metrics exposed by the model_serving API.
+
+-------------------------------------------------------------------------------------------------
+Code Explanation
+-------------------------------------------------------------------------------------------------
+
+Model Loading: The trained model.pkl file is loaded using pickle.load().
+
+Prediction Endpoint (/predict):
+The endpoint expects a JSON body with the following format:
+{
+  "features": [feature1, feature2, feature3, ..., feature8]
+}
+
+Example:
+{
+  "features": [8.3252, 41.0, 6.984126984126984, 0.4166666666666667, -122.23, 37.88, 2.55, 37.28]
+}
+
+The model predicts the target (house value) based on the input features.
+
+Prometheus Metrics:
+REQUEST_COUNT: Tracks the number of prediction requests.
+PREDICTION_LATENCY: Measures the time taken to process and respond to a prediction request.
+
+To run the model-serving API:
+python app.py
+It will start the Flask server on http://0.0.0.0:5001 and 
+expose the Prometheus metrics on http://0.0.0.0:8000/metrics
+
+
+Monitor with Prometheus and Grafana
+Follow the previous steps to configure Prometheus and Grafana:
+
+Prometheus will scrape the /metrics endpoint every 15 seconds.
+Grafana will visualize the metrics, including request counts and prediction latency.
+
+Example Grafana Queries:
+Prediction Latency: model_prediction_latency_seconds
+Request Count: rate(model_request_count[1m])

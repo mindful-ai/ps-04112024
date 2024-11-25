@@ -1,0 +1,7 @@
+global:
+  scrape_interval: 15s  # Scrape every 15 seconds
+
+scrape_configs:
+  - job_name: 'model_serving'
+    static_configs:
+      - targets: ['model_serving:8000']  # The API exposed metrics on port 8000
