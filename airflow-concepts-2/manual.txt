@@ -1,0 +1,8 @@
+heart_pipeline/
+├── dags/
+│   └── heart_pipeline_dag.py
+├── Dockerfile
+├── docker-compose.yml
+├── requirements.txt
+└── data/
+    └── heart.csv
