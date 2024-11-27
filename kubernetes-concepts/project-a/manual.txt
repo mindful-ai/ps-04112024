@@ -1,0 +1,122 @@
+DEPLOYING A DOCKER CONTAINER TO KUBERNETES CLUSTER 
+---------------------------------------------------------------------------------------------------
+
+Test:
+kubectl cluster-info
+
+
+Step 1: Enable Kubernetes in Docker Desktop
+---------------------------------------------------------------------------------------------------
+Open Docker Desktop.
+Go to Settings > Kubernetes.
+Check Enable Kubernetes and click Apply & Restart.
+
+
+Step 2: Create a Namespace 
+---------------------------------------------------------------------------------------------------
+> kubectl create namespace demo
+
+
+Step 3: Create a Redis Deployment YAML File
+---------------------------------------------------------------------------------------------------
+
+See the redis-deployment.YAML
+
+
+Step 4: Deploy Redis
+---------------------------------------------------------------------------------------------------
+
+> kubectl apply -f redis-deployment.yaml
+> kubectl get pods -n demo
+
+Step 5: Expose Redis with a Service
+---------------------------------------------------------------------------------------------------
+
+See redis-service.yaml
+> kubectl apply -f redis-service.yaml
+
+Step 6: Access Redis
+---------------------------------------------------------------------------------------------------
+
+> kubectl port-forward svc/redis-service 6379:6379 -n demo
+Open a Redis CLI or client and connect to localhost:6379
+
+
+Step 7: Verify the Deployment
+---------------------------------------------------------------------------------------------------
+
+> kubectl logs <pod-name> -n demo
+
+Verify the service:
+> kubectl get svc -n demo
+
+
+Details
+---------------------------------------------------------------------------------------------------
+
+kubectl knows which kubernetes engine to deploy using the ~/.kube/config file for the current context.
+The current context determines:
+Which cluster to communicate with.
+How to authenticate.
+
+You can check which cluster kubectl is communicating with:
+> kubectl config view
+
+You can check the current context:
+> kubectl config current-context
+
+
+If you have multiple clusters, you can switch contexts using:
+> kubectl config use-context <context-name>
+
+
+
+Scaling Up or Down Dynamically
+---------------------------------------------------------------------------------------------------
+
+> kubectl scale deployment redis --replicas=5 -n demo
+> kubectl scale deployment redis --replicas=1 -n demo
+
+> kubectl get pods -n demo
+
+
+
+Connecting Directly to Each Pod
+---------------------------------------------------------------------------------------------------
+
+Get Pod IP Addresses: You can get the IPs of the Redis pods with:
+> kubectl get pods -o wide -n demo
+
+
+How Ports Work Upon Scaling
+Container Port: Each Redis pod exposes the same port (6379) inside the pod. This is the default Redis port.
+Service Port: The Kubernetes service that exposes the Redis instances will also route traffic to port 6379 
+regardless of how many Redis pods you have.
+
+Port Numbers Upon Scaling
+The service port remains the same (6379) and does not change when scaling.
+The container port for Redis inside each pod remains 6379.
+Kubernetes will handle routing the traffic between pods. You do not need to worry about the 
+internal port numbers on individual pods because the service abstracts that away.
+In short, connect through the service (e.g., localhost:6379 or the service DNS name in the cluster), 
+and Kubernetes will handle routing traffic to the available Redis pods.
+
+
+Clean Up
+---------------------------------------------------------------------------------------------------
+
+To delete all pods in all namespaces:
+> kubectl delete pods --all --all-namespaces
+
+If you want to clean up everything (pods, services, deployments, etc.) in all namespaces:
+> kubectl delete all --all --all-namespaces
+
+If you have created custom namespaces, delete them as well:
+> kubectl delete namespace <namespace-name>
+or
+> kubectl delete namespaces $(kubectl get namespaces --no-headers | awk '{print $1}')
+
+
+Reset Docker Desktop Kubernetes Cluster:
+Go to Docker Desktop > Settings > Kubernetes.
+Click Reset Kubernetes Cluster.
