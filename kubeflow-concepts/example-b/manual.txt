@@ -1,0 +1,15 @@
+https://github.com/kubeflow/examples
+
+
+--------------------------------------------------------------------------
+> pip install kfp scikit-learn pandas
+
+
+Save the above script as iris_pipeline.py.
+Run the script to generate the iris_pipeline.yaml file
+> python iris_pipeline.py
+Upload the iris_pipeline.yaml to the Kubeflow Pipelines dashboard:
+    Open the Kubeflow UI.
+    Go to Pipelines > Upload Pipeline.
+    Choose iris_pipeline.yaml and upload it.
+Execute the pipeline and monitor its progress.

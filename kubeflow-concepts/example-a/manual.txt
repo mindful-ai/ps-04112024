@@ -1,0 +1,70 @@
+Running Kubeflow on Elastic Kubernetes Service
+
+-----------------------------------------------------------------------------------------------------------
+
+Install Helm:
+
+Helm is:
+    Kubernetes package manager
+    A tool that allows users to: 
+    Describe complex apps 
+    Install applications repeatedly 
+    Update applications with in-place upgrades and custom hooks 
+    Version, share, and host charts on public or private servers 
+    Roll back to an older version of a release
+
+Visit: https://helm.sh/docs/intro/install/
+> winget install Helm.Helm
+Re-start VSC
+
+
+-----------------------------------------------------------------------------------------------------------
+eksctl, helm and kubectl on Windows (see equivalent for MacOS/Linux)
+> choco install eksctl
+
+Setup EKS Cluster:
+> eksctl create cluster --name kubeflow-demo --version 1.24 --region us-west-2 --nodegroup-name kubeflow-nodes \
+  --node-type t3.medium --nodes 3 --nodes-min 1 --nodes-max 4 --managed
+
+Verify:
+> kubectl get nodes
+
+Kubernetes Contexts:
+
+> kubectl config current-context
+> kubectl config get-contexts
+> kubectl config use-context <context-name>
+-----------------------------------------------------------------------------------------------------------
+
+Install Kubeflow (the sequence that worked in my computer)
+
+kubectl apply -k "github.com/kubeflow/pipelines/manifests/kustomize/cluster-scoped-resources?ref=2.3.0"
+kubectl wait --for condition=established --timeout=60s crd/applications.app.k8s.io
+kubectl apply -k "github.com/kubeflow/pipelines/manifests/kustomize/env/dev?ref=2.3.0"
+
+kubectl port-forward -n kubeflow svc/ml-pipeline-ui 8080:80
+
+Check: http://localhost:8080
+
+-----------------------------------------------------------------------------------------------------------
+
+See the services available:
+> kubectl get svc -n kubeflow
+
+Verify pod health:
+> kubectl get pods -n kubeflow
+
+To check the logs:
+> kubectl logs ml-pipeline-ui-7cbcf8987d-xbplx -n kubeflow
+
+
+-----------------------------------------------------------------------------------------------------------
+
+Detele the cluster that was created:
+> eksctl delete cluster --name kubeflow-demo --region us-west-2
+
+Clean-up additional resources (S3/ELB/etc):
+> aws elb describe-load-balancers --region us-west-2
+> aws elb delete-load-balancer --load-balancer-name <load-balancer-name> --region us-west-2
+> aws s3 ls
+> aws s3 rb s3://<bucket-name> --force

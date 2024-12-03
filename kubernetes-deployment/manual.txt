@@ -1,0 +1,43 @@
+Run backend/train.py
+
+# Navigate to the frontend directory
+cd frontend
+# Build the Docker image
+docker build -t purushotham1982/frontend:latest .
+# Push the image to Docker Hub
+docker push purushotham1982/frontend:latest
+
+
+# Navigate to the backend directory
+cd backend
+# Build the Docker image
+docker build -t purushotham1982/backend:latest .
+# Push the image to Docker Hub
+docker push purushotham1982/backend:latest
+
+kubectl cluster-info
+
+kubectl apply -f k8s/namespace.yml
+kubectl apply -f k8s/backend-deployment.yml
+kubectl apply -f k8s/backend-service.yml
+kubectl apply -f k8s/frontend-deployment.yml
+kubectl apply -f k8s/frontend-service.yml
+
+kubectl get pods -o wide -n ml-app
+kubectl get services -n ml-app
+
+Test localhost:30542
+
+-----------------------------------------------------
+
+kubectl describe service frontend-service -n ml-app
+netstat -an | findstr 31016
+
+
+
+
+kubectl delete -f k8s/namespace.yml
+kubectl delete -f k8s/backend-deployment.yml
+kubectl delete -f k8s/backend-service.yml
+kubectl delete -f k8s/frontend-deployment.yml
+kubectl delete -f k8s/frontend-service.yml
