@@ -1,0 +1,8 @@
+Upload the data file
+---------------------------------------------------------------------------------------------
+
+aws s3 mb s3://purushotham-aws-1234 --region ap-south-1
+aws s3 cp ./heart.csv s3://purushotham-aws-1234/
+aws s3 ls s3://purushotham-aws-1234/
+
+aws sagemaker delete-endpoint-config --endpoint-config-name california-housing-endpoint
