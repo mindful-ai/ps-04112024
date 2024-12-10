@@ -1,0 +1,46 @@
+Build the model
+
+----------------------------------------------------------------------
+
+Configure S3 buckets:
+
+> aws s3 mb s3://ml-pipeline-artifacts-pur
+> aws s3 sync ./ml-project s3://ml-pipeline-artifacts-pur/ml-project
+
+----------------------------------------------------------------------
+
+Configure CodePipeline
+Navigate to AWS CodePipeline in the AWS Management Console.
+Create a new pipeline:
+    Source Stage: Use S3 as the source.
+    Build Stage: Add a CodeBuild project with the following configuration:
+        Environment: Use a managed image with Python 3.8.
+        BuildSpec: Use the buildspec.yml file.
+    Deploy Stage: Deploy the model.pkl to an S3 bucket or integrate with Lambda/SageMaker for serving.
+
+----------------------------------------------------------------------
+
+Trigger the pipeline
+> aws s3 cp ./model_training.py s3://ml-pipeline-artifacts-pur/ml-project/model_training.py
+
+----------------------------------------------------------------------
+
+Deploy using lambda service or any other way/service:
+
+import json
+import pickle
+
+def lambda_handler(event, context):
+    # Load model
+    with open('/tmp/model.pkl', 'rb') as f:
+        model = pickle.load(f)
+
+    # Extract features
+    data = event['data']  # Expecting a JSON array
+    predictions = model.predict([data])
+    return {
+        'statusCode': 200,
+        'body': json.dumps({'prediction': int(predictions[0])})
+    }
+
+Package and deploy the Lambda function with model.pkl

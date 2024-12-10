@@ -1,0 +1,3 @@
+aws lambda invoke --function-name myTestFunction ./out
+
+Make sure the lambda function is deployed first before testing

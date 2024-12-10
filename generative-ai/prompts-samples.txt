@@ -1,0 +1,110 @@
+-----------------------------------------------------------------------------------------------------------------------------
+Sentiment Analysis #1
+-----------------------------------------------------------------------------------------------------------------------------
+
+Question: What is the sentiment
+of this review?
+
+Review: This is a shoe I will wear
+with black dress pants or jeans
+when I need comfort and a little
+style, but I am not impressed.
+This is a very flimsy shoe with
+little support at all. Unlike any
+other shoes I've purchased in the
+past. It looks nice, but it's not
+comfortable.
+
+-----------------------------------
+Question: What is the sentiment
+of this review? Provide an
+explanation of the reasoning.
+
+Review: This is a shoe I will wear
+with black dress pants or jeans
+when I need comfort and a little
+style, but I am not impressed.
+This is a very flimsy shoe with
+little support at all. Unlike any
+other shoes I've purchased in the
+past. It looks nice, but it's not
+comfortable.
+-----------------------------------
+Question: For the given review,
+return a JSON object that has the
+fields sentiment and explanation.
+Acceptable values for sentiment
+are Positive or Negative. The
+explanation field contains text
+that explains the sentiment.
+
+Review: This is a shoe I will wear
+with black dress pants or jeans
+when I need comfort and a little
+style, but I am not impressed.
+This is a very flimsy shoe with
+little support at all. Unlike any
+other shoes I've purchased in the
+past. It looks nice, but it's not
+comfortable.
+
+
+
+-----------------------------------------------------------------------------------------------------------------------------
+Sentiment Analysis #2
+-----------------------------------------------------------------------------------------------------------------------------
+You are a travel agent for the World Commute airline company in New York, New York. Your primary job is to make airline reservations for customers and to serve as a customer service representative. Airline passengers have been given a Likert scale (1 - 5, 1 being poor and 5 being excellent) to measure their level of satisfaction with World Commute, followed by a space for additional comments.
+
+Your task is to analyze these passenger questionnaires and create a concise summary for our management team to understand customer perceptions and identify areas for improvement.
+
+Summarization steps:
+Write a 2-paragraph summarization of the questionnaires left by airline passengers about our company. 
+The first paragraph should consolidate the positive information and the second paragraph should consolidate 
+the negative information. The point of this summary is for our management team to see what areas we need 
+to improve on, so do not avoid any of the complaints left in the questionnaires. T
+his should be no more than 150 - 300 words.
+
+Follow these guidelines:
+
+* Your response should consolidate the information given into a paragraph format.
+* You should only answer in English.
+* If questionnaires say the same thing, do not write them twice in your summary.
+* Do not write more than 150 - 300 words.
+* This should be written from a third-person perspective.
+* Do not write anything explicit or harmful, or anything that could potentially be considered harmful.
+* Output your response in a polite, friendly, and conversational tone.
+* Do not avoid negative feedback.
+* Your response should be honest and include both positive and negative feedback, making sure to separate the 2 into different paragraphs to easily discern which sentences are positive and which are negative.
+
+User Input:
+
+List of Reviews:
+1. World Commute: 5 - Liked: Excellent customer service, comfortable seating, and efficient boarding process. Disliked: No significant issues to report. World Commute offers a luxurious and comfortable flying experience. The spacious seating, delicious meals, and attentive service make for an enjoyable journey. Their attention to detail and customer satisfaction is commendable.
+2. World Commute: 3 - Liked: Punctual departure and arrival. Disliked: Limited in-flight entertainment options and lack of communication during a brief in-flight issue. I recently flew with World Commute, and while their service was satisfactory, the flight was delayed, causing inconvenience. The crew did their best to keep us updated, and the in-flight entertainment helped pass the time.
+3. World Commute: 4 - Liked: Helpful and friendly cabin crew, smooth check-in process, and comfortable seats. Disliked: Cleanliness of the aircraft could be improved. Flying with World Commute was an exceptional experience, from the efficient check-in process to the friendly crew and smooth flight. I appreciated the cleanliness of the aircraft and the variety of meal options.
+4. World Commute: 5 - Liked: Exceptional staff, prompt assistance during a flight delay, and great onboard dining options. Disliked: Minor issue with baggage handling. My World Commute flight was comfortable, but the legroom was limited, making it difficult to relax fully during the long journey. The staff was attentive and helpful, ensuring our needs were met throughout the flight.
+5.World Commute: 4 - Liked: On-time departure, attentive crew, and efficient boarding. Disliked: Limited vegan meal options. I was disappointed with my World Commute experience due to the outdated in-flight entertainment system and limited movie selection. The crew was friendly, but the overall experience left much to be desired.
+6. World Commute: 5 - Liked: Affordable ticket prices. Disliked: Cramped seating, limited legroom, and average customer service. World Commute provides a seamless travel experience, with punctual departures and arrivals. The crew's professionalism and dedication to passenger comfort made the journey stress-free and enjoyable.
+7. World Commute: 2 - Liked: Smooth flight, excellent in-flight entertainment, and professional staff. Disliked: No notable issues. My flight with World Commute was disappointing, as the cabin was not well-maintained, and the seats were uncomfortable. While the crew was polite, the overall cleanliness of the aircraft was subpar.
+8. World Commute: 4 - Liked: Attentive and friendly crew, comfortable seating, and punctual departure. Disliked: Baggage fees. I was pleasantly surprised by my World Commute flight. The spacious legroom, delectable meals, and attentive service made the journey memorable. The modern aircraft and smooth flight added to the positive experience.
+9. World Commute: 3 - Liked: Convenient flight schedules. Disliked: Limited communication about a delayed flight and average cabin cleanliness. I experienced a lack of communication from World Commute regarding a delayed flight, which caused frustration and inconvenience. The in-flight service was satisfactory, but the delay left a negative impression.
+10. World Commute: 4 - Liked: Efficient check-in, helpful staff, and pleasant in-flight experience. Disliked: Limited in-flight Wi-Fi connectivity. World Commute's commitment to customer satisfaction is evident in their friendly crew and comfortable seating. Although the in-flight Wi-Fi was slow and unreliable, I was overall pleased with my journey.
+
+
+-----------------------------------------------------------------------------------------------------------------------------
+Learning Plan
+-----------------------------------------------------------------------------------------------------------------------------
+
+I am a professional with 10 years of experience in python coding. I would like to apply for jobs in the AI industry.
+Particularly, for jobs focussing on LLMs, AI based applications development. Generate a learning plan that I can complete
+in 6 months.
+
+-----------------------------------------------------------------------------------------------------------------------------
+
+-----------------------------------------------------------------------------------------------------------------------------
+
+
+
+-----------------------------------------------------------------------------------------------------------------------------
+
+-----------------------------------------------------------------------------------------------------------------------------

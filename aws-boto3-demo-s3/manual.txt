@@ -1,0 +1,16 @@
+Install in a virtual environment:
+> pip install boto3
+
+-----------------------------------------------------------------------------------------------
+
+CLI Method:
+
+> aws s3 ls
+> aws s3 ls s3://your-bucket-name/ --recursive
+> aws s3 ls s3://your-bucket-name/ --recursive | grep '.txt'
+> aws s3api create-bucket --bucket your-unique-bucket-name --region us-east-1 --create-bucket-configuration LocationConstraint=us-east-1
+> aws s3 rm s3://your-unique-bucket-name --recursive
+> aws s3 rm s3://your-bucket-name/path/to/your/file.txt
+> aws s3 rb s3://purush-aws-s3-test-22081982 --force
+
+

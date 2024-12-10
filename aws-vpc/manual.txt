@@ -1,0 +1,236 @@
+Create a VPC:
+> aws ec2 create-vpc --cidr-block 10.0.0.0/16
+
+output:
+{
+    "Vpc": {
+        "OwnerId": "069641793383",
+        "InstanceTenancy": "default",
+        "Ipv6CidrBlockAssociationSet": [],
+        "CidrBlockAssociationSet": [
+            {
+                "AssociationId": "vpc-cidr-assoc-08e957422c22ef21c",
+                "CidrBlock": "10.0.0.0/16",
+                "CidrBlockState": {
+                    "State": "associated"
+                }
+            }
+        ],
+        "IsDefault": false,
+        "VpcId": "vpc-0f630e62ed2d65875",
+        "State": "pending",
+        "CidrBlock": "10.0.0.0/16",
+        "DhcpOptionsId": "dopt-0b8134b69c2659d49"
+    }
+}
+
+Note the VPC-ID: vpc-0f630e62ed2d65875
+
+--------------------------------------------------------------------------------------------------
+
+What is a CIDR Block?
+A CIDR block (Classless Inter-Domain Routing block) specifies a range of IP addresses using a 
+combination of an IP address and a subnet mask in the format IP/PrefixLength. For example, 
+192.168.1.0/24 represents the IP range from 192.168.1.0 to 192.168.1.255, with 24 indicating 
+the number of bits used for the network portion. It is commonly used to allocate IP ranges 
+in networks like AWS VPCs.
+
+In the CIDR notation 192.168.1.0/24, the /24 means the first 24 bits of the IP address 
+(out of 32 bits total for IPv4) are reserved for the network identifier, while the remaining 
+8 bits are available for defining host addresses within that network.
+
+For example:
+
+Network portion (24 bits): 192.168.1 is fixed for the network.
+Host portion (8 bits): The last 8 bits can vary (e.g., 0 to 255), allowing up to 256 IP addresses 
+for devices in this network.
+
+--------------------------------------------------------------------------------------------------
+
+Add name and tag to VPC:
+>aws ec2 create-tags --resources vpc-0f630e62ed2d65875 --tags Key=Name,Value=MyVPC
+
+--------------------------------------------------------------------------------------------------
+
+Create a sub-net in the VPC:
+> aws ec2 create-subnet --vpc-id vpc-0f630e62ed2d65875 --cidr-block 10.0.1.0/24
+
+output:
+{
+    "Subnet": {
+        "AvailabilityZoneId": "aps1-az2",
+        "OwnerId": "069641793383",
+        "AssignIpv6AddressOnCreation": false,
+        "Ipv6CidrBlockAssociationSet": [],
+        "SubnetArn": "arn:aws:ec2:ap-south-1:069641793383:subnet/subnet-0ef26bce710fa4fb3",
+        "EnableDns64": false,
+        "Ipv6Native": false,
+        "PrivateDnsNameOptionsOnLaunch": {
+            "HostnameType": "ip-name",
+            "EnableResourceNameDnsARecord": false,
+            "EnableResourceNameDnsAAAARecord": false
+        },
+        "SubnetId": "subnet-0ef26bce710fa4fb3",
+        "State": "available",
+        "VpcId": "vpc-0f630e62ed2d65875",
+        "CidrBlock": "10.0.1.0/24",
+        "AvailableIpAddressCount": 251,
+        "AvailabilityZone": "ap-south-1c",
+        "DefaultForAz": false,
+        "MapPublicIpOnLaunch": false
+    }
+}
+
+Note sub-net ID: subnet-0ef26bce710fa4fb3
+--------------------------------------------------------------------------------------------------
+
+What is a subnet?
+A subnet (short for subnetwork) is a smaller, segmented part of a larger network, created by dividing 
+the network's IP address range (CIDR block). It is defined by a subnet mask that determines which portion 
+of the IP address is used for the network and which is used for individual devices (hosts).
+
+Necessity of Subnets:
+Efficient IP Allocation: Helps manage and allocate IP addresses more effectively, avoiding wastage.
+Improved Network Performance: Reduces traffic congestion by limiting broadcast domains to smaller segments.
+Enhanced Security: Allows isolation of sensitive resources in specific subnets with access control mechanisms.
+Simplifies Management: Enables grouping of resources based on functionality, geography, 
+or security needs, making the network easier to manage.
+
+--------------------------------------------------------------------------------------------------
+
+Create an Internet Gateway:
+If you want to connect the VPC to the internet, create an Internet Gateway:
+
+> aws ec2 create-internet-gateway
+
+{
+    "InternetGateway": {
+        "Attachments": [],
+        "InternetGatewayId": "igw-00d7ae87f2ede8415",
+        "OwnerId": "069641793383",
+        "Tags": []
+    }
+}
+
+Note in Internet Gateway ID: igw-00d7ae87f2ede8415
+> aws ec2 attach-internet-gateway --vpc-id vpc-0f630e62ed2d65875 --internet-gateway-id igw-00d7ae87f2ede8415
+
+--------------------------------------------------------------------------------------------------
+
+Create a Route Table:
+
+> aws ec2 create-route-table --vpc-id vpc-0f630e62ed2d65875
+
+{
+    "RouteTable": {
+        "Associations": [],
+        "PropagatingVgws": [],
+        "RouteTableId": "rtb-018aa2506cd66885a",
+        "Routes": [
+            {
+                "DestinationCidrBlock": "10.0.0.0/16",
+                "GatewayId": "local",
+                "Origin": "CreateRouteTable",
+                "State": "active"
+            }
+        ],
+        "Tags": [],
+        "VpcId": "vpc-0f630e62ed2d65875",
+        "OwnerId": "069641793383"
+    },
+    "ClientToken": "86c07830-6c14-4585-984a-4346b031dfc7"
+}
+
+Note Route Table ID: rtb-018aa2506cd66885a
+
+Create Routes:
+
+Add a route to allow traffic to the internet:
+> aws ec2 create-route --route-table-id rtb-018aa2506cd66885a --destination-cidr-block 0.0.0.0/0 --gateway-id igw-00d7ae87f2ede8415
+
+Associate the route table with the subnet:
+> aws ec2 associate-route-table --route-table-id rtb-018aa2506cd66885a --subnet-id subnet-0ef26bce710fa4fb3
+
+
+{
+    "AssociationId": "rtbassoc-06430c142dd07a37d",
+    "AssociationState": {
+        "State": "associated"
+    }
+}
+
+--------------------------------------------------------------------------------------------------
+
+What is Route Table and Routes?
+
+A route is a rule in a route table that defines the path for network traffic to a specific destination 
+(CIDR block) through a target (e.g., an internet gateway, NAT gateway, or network interface).
+
+A route table in AWS contains a set of routes, which are rules that determine how network traffic is 
+directed within a Virtual Private Cloud (VPC). Each route specifies a destination (CIDR block) and a 
+target (e.g., internet gateway, NAT gateway, VPC peering, etc.).
+
+Why Create Them for a VPC:
+
+Control Traffic Flow: Route tables manage how traffic moves between subnets, the internet, and other networks.
+Enable Internet Access: To allow a subnet's traffic to reach the internet, routes to an internet gateway must 
+be defined.
+Isolate Traffic: Separate route tables can enforce specific traffic flows for public, private, 
+and hybrid subnets.
+Support Multi-Networks: Enable communication between VPCs, on-premise networks, or other AWS services.
+
+--------------------------------------------------------------------------------------------------
+Let's Test
+--------------------------------------------------------------------------------------------------
+
+Steps to Create an S3 Bucket in the VPC
+> aws s3api create-bucket --bucket purush-aws-test-s3-bucket --region ap-south-1 --create-bucket-configuration LocationConstraint=ap-south-1
+
+{
+    "Location": "http://purush-aws-test-s3-bucket.s3.amazonaws.com/"
+}
+
+Create aVPC end-point for the bucket:
+> aws ec2 create-vpc-endpoint --vpc-id vpc-0f630e62ed2d65875 --service-name com.amazonaws.ap-south-1.s3 --route-table-ids rtb-018aa2506cd66885a
+
+
+Apply the bucket-policy to restric access to VPC:
+> aws s3api put-bucket-policy --bucket purush-aws-test-s3-bucket --policy file://C:\mindful-ai\sapient-ds\presentation\week-06\aws-vpc\bucket-policy.json
+
+DEMONSTRATING BUCKET ACCESSIBILITY:
+
+From a EC2 instance with in VPC:
+> aws s3 ls s3://purush-aws-test-s3-bucket
+
+And repeat the same from EC2 instance outside the VPC
+What do you infer?
+
+--------------------------------------------------------------------------------------------------
+Clean Up
+--------------------------------------------------------------------------------------------------
+
+To clean up the VPC and S3 bucket created earlier, follow these steps using the AWS CLI. 
+Ensure you have sufficient permissions to delete resources.
+
+> aws s3 rm s3://purush-aws-test-s3-bucket --recursive
+> aws s3api delete-bucket --bucket purush-aws-test-s3-bucket
+
+Detect, Detach and Delete VPC/Subnets/Routes:
+> aws ec2 describe-internet-gateways --filters Name=attachment.vpc-id,Values=vpc-0f630e62ed2d65875
+> aws ec2 detach-internet-gateway --internet-gateway-id igw-00d7ae87f2ede8415 --vpc-id vpc-0f630e62ed2d65875
+> aws ec2 delete-internet-gateway --internet-gateway-id igw-00d7ae87f2ede8415
+
+> aws ec2 describe-subnets --filters Name=vpc-id,Values=vpc-0f630e62ed2d65875
+> aws ec2 delete-subnet --subnet-id subnet-0ef26bce710fa4fb3
+
+
+> aws ec2 describe-route-tables --filters Name=vpc-id,Values=vpc-0f630e62ed2d65875
+> aws ec2 delete-route-table --route-table-id rtb-0c7b5bb8a371038f9
+
+> aws ec2 describe-vpc-endpoints --filters Name=vpc-id,Values=vpc-0f630e62ed2d65875
+> aws ec2 delete-vpc-endpoints --vpc-endpoint-ids vpce-038c333a6a8c1b9f8
+
+> aws ec2 describe-security-groups --filters Name=vpc-id,Values=vpc-0f630e62ed2d65875
+> aws ec2 delete-security-group --group-id <SecurityGroupId>
+
+> aws ec2 terminate-instances --instance-ids <InstanceId>

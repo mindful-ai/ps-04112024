@@ -1,0 +1,67 @@
+import json
+import joblib
+import boto3
+import os
+import numpy as np
+
+# Load the model from S3 when the function is first called
+s3 = boto3.client('s3')
+model_bucket = os.environ['MODEL_BUCKET']
+model_key = 'heart_disease_model.pkl'
+
+def lambda_handler(event, context):
+    # Download the model file from S3
+    s3.download_file(model_bucket, model_key, '/tmp/heart_disease_model.pkl')
+
+    # Load the model
+    model = joblib.load('/tmp/heart_disease_model.pkl')
+
+    # Get the input data for prediction
+    input_data = np.array(event['input_data']).reshape(1, -1)
+
+    # Predict using the model
+    prediction = model.predict(input_data)
+    
+    # Return the prediction result
+    result = 'Heart Disease' if prediction[0] == 1 else 'No Heart Disease'
+    
+    return {
+        'statusCode': 200,
+        'body': json.dumps({'prediction': result})
+    }
+
+
+---------------------
+
+
+Create the Lambda function LoadModelAndPredict in the AWS Lambda console.
+Set up environment variables for the bucket name (MODEL_BUCKET).
+Assign the necessary IAM role with permissions to access S3.
+Add the heart_disease_model.pkl model to an S3 bucket.
+Deploy the Lambda function.
+
+---------------------
+
+import json
+import numpy as np
+
+def lambda_handler(event, context):
+    # Preprocess the input data (example: scaling, encoding)
+    # Here, we'll just assume the input is already numeric and properly formatted.
+    
+    # Extract relevant features from the event (assuming the features are already passed)
+    features = event['features']
+
+    # Perform any preprocessing if needed (e.g., scaling, missing value handling)
+    processed_data = np.array(features)
+    
+    # Pass the preprocessed data to the next Lambda (LoadModelAndPredict)
+    return {
+        'statusCode': 200,
+        'body': json.dumps({'input_data': processed_data.tolist()})
+    }
+
+-----------------------
+
+Create the Lambda function PreprocessData.
+Deploy and test it.

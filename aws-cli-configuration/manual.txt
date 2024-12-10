@@ -1,0 +1,9 @@
+> aws configure
+
+PS C:\mindful-ai\sapient-ds> aws configure
+AWS Access Key ID [None]: XXXXXXXXX
+AWS Secret Access Key [None]: XXX/YYYYYYYYY
+Default region name [None]: ap-south-1
+Default output format [None]: json
+
+Copy the Acess Key ID and Secret Access Key from IAM user

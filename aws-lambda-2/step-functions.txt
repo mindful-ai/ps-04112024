@@ -1,0 +1,46 @@
+{
+  "Comment": "Heart Disease Prediction Example",
+  "StartAt": "PreprocessData",
+  "States": {
+    "PreprocessData": {
+      "Type": "Task",
+      "Resource": "arn:aws:lambda:REGION:ACCOUNT_ID:function:PreprocessData",
+      "ResultPath": "$.processed_data",
+      "Next": "LoadModelAndPredict"
+    },
+    "LoadModelAndPredict": {
+      "Type": "Task",
+      "Resource": "arn:aws:lambda:REGION:ACCOUNT_ID:function:LoadModelAndPredict",
+      "InputPath": "$.processed_data",
+      "End": true
+    }
+  }
+}
+
+---------------------
+
+Replace REGION with your AWS region and ACCOUNT_ID with your AWS account ID.
+
+Steps to deploy:
+
+Go to the AWS Step Functions console.
+Click Create state machine.
+Paste the above definition.
+Give the state machine a name (e.g., HeartDiseasePrediction).
+Click Create State Machine.
+
+----------------------
+
+Go to the Step Functions console.
+Click on your state machine (HeartDiseasePrediction).
+Click Start Execution.
+Enter input data (a JSON object representing heart disease features, for example):
+
+{
+  "features": [63, 1, 3, 145, 233, 1, 2, 150, 0, 0, 1, 2, 3]
+}
+
+Click Start Execution. The Step Function will invoke PreprocessData, process the data, 
+and then pass the processed data to LoadModelAndPredict, which will return the prediction.
+
+

@@ -23,8 +23,7 @@ eksctl, helm and kubectl on Windows (see equivalent for MacOS/Linux)
 > choco install eksctl
 
 Setup EKS Cluster:
-> eksctl create cluster --name kubeflow-demo --version 1.24 --region us-west-2 --nodegroup-name kubeflow-nodes \
-  --node-type t3.medium --nodes 3 --nodes-min 1 --nodes-max 4 --managed
+> eksctl create cluster --name kubeflow-demo --version 1.24 --region us-west-2 --nodegroup-name kubeflow-nodes --node-type t3.medium --nodes 3 --nodes-min 1 --nodes-max 4 --managed
 
 Verify:
 > kubectl get nodes
